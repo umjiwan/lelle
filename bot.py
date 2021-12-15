@@ -5,7 +5,7 @@ import sys
 
 client = discord.Client()
 
-"""if os.path.isfile("token.txt"):
+if os.path.isfile("token.txt"):
     pass
 else:
     f = open("token.txt", "w")
@@ -15,13 +15,14 @@ f = open("token.txt", "r+")
 
 if f.read() == "":
     print("Write token in the token.txt")
+    f.close()
     sys.exit()
+f.close()
+    
+f = open("token.txt", "r+")
+token = str(f.read())
+f.close()
 
-token = f.read()
-print(f.read())
-f.close()"""
-
-token = "OTIwNjEzOTI4MjAyMDE4ODk5.Ybm6iA.EIQlXpVHb7osvgBg95Qgz4tgWlc"
 @client.event
 async def on_ready():
     print("login!")
