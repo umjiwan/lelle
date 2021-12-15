@@ -46,12 +46,18 @@ async def on_message(message):
         stock = lelle.stock(msg[3:])
         name = stock.name()
         price = stock.price()
+        compare = stock.compare()
+        fluctuating = stock.fluctuating()
+        sellask = stock.sellask()
+        buyask = stock.buyask()
+        transaction = stock.transaction()
 
+        await message.channel.send(name)
         await message.channel.send(price)
-            
-
-
-
-
+        await message.channel.send(compare)
+        await message.channel.send(fluctuating)
+        await message.channel.send(sellask)
+        await message.channel.send(buyask)
+        await message.channel.send(transaction)
 
 client.run(token)
