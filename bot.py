@@ -2,6 +2,8 @@ import discord
 import asyncio
 import os.path
 import sys
+import lelle
+
 
 client = discord.Client()
 
@@ -34,7 +36,22 @@ async def on_ready():
 async def on_message(message):
     if message.author.bot:
         return None
-    if message.content == "ping":
-        await message.channel.send("pong")
+    if message.content.startswith("u"):
+        msg = message.content[1:]
+    else:
+        return None
+
+
+    if msg[:2] == "주식":
+        stock = lelle.stock(msg[3:])
+        name = stock.name()
+        price = stock.price()
+
+        await message.channel.send(price)
+            
+
+
+
+
 
 client.run(token)
