@@ -26,19 +26,35 @@ class stock:
         return name.text[:-2]
 
     def price(self):
-        pass
+        selector = "2)"
+        price = (self.soup).select_one(self.base_selector + selector)
+        return price.text
 
     def compare(self):
-        pass
+        selector = "3)"
+        compare = (self.soup).select_one(self.base_selector + selector)
+        
+        if str(compare)[30:32] != "상승":
+            return int(compare.text) * -1
 
+        return int(compare.text)
+        
     def fluctuating(self):
-        pass
+        selector = "4)"
+        fluctuating = (self.soup).select_one(self.base_selector + selector)
+        return fluctuating.text
 
     def sellask(self):
-        pass
+        selector = "5)"
+        sellask = (self.soup).select_one(self.base_selector + selector)
+        return sellask.text
 
     def buyask(self):
-        pass
+        selector = "6)"
+        buyask = (self.soup).select_one(self.base_selector + selector)
+        return buyask.text
 
     def transaction(self):
-        pass
+        selector = "7)"
+        transaction = (self.soup).select_one(self.base_selector + selector)
+        return transaction.text
