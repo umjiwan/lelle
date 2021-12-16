@@ -25,6 +25,11 @@ class stock:
         name = (self.soup).select_one(self.base_selector + selector)
         return name.text[:-2]
 
+    def code(self):
+        selector = "#content > div.section_search > table > tbody > tr:nth-child(1) > td.tit > a"
+        code = (self.soup).select_one(selector)
+        return str(code)[31:37]
+
     def price(self):
         selector = "2)"
         price = (self.soup).select_one(self.base_selector + selector)
