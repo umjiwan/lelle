@@ -7,6 +7,10 @@ import re
 
 class stock:
     def __init__(self, name):
+
+        if name == "카카오":
+            name = "kakao"
+
         base_url = "https://finance.naver.com/search/searchList.naver?query="
         suffix = parse.quote(name.encode("euc-kr"))
 
@@ -53,13 +57,14 @@ class stock:
     def compare(self):
         selector = f"div > p.no_exday > em.{self.updown} > span.blind"
         compare = (self.soup).select_one(selector).text
-        compare = int(compare.replace(",", ""))
 
         ics_selector = f"div > p.no_exday > em.{self.updown} > span"
         increase = (self.soup).select_one(ics_selector).text
 
         if increase != "상승":
-            compare *= -1
+            compare = f"-{compare}"
+        else:
+            compare = f"+{compare}"
 
         return compare
         
