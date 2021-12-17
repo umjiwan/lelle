@@ -52,7 +52,8 @@ class stock:
 
     def compare(self):
         selector = f"div > p.no_exday > em.{self.updown} > span.blind"
-        compare = int((self.soup).select_one(selector).text)
+        compare = (self.soup).select_one(selector).text
+        compare = int(compare.replace(",", ""))
 
         ics_selector = f"div > p.no_exday > em.{self.updown} > span"
         increase = (self.soup).select_one(ics_selector).text
