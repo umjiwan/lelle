@@ -1,4 +1,3 @@
-from typing import Text
 import discord
 import asyncio
 import os.path
@@ -44,9 +43,9 @@ async def stock(ctx, *, s_name:str):
 
     await ctx.channel.send(embed=embed)
 
-"""@stock.error
+@stock.error
 async def stock_error(ctx, error):
-    await ctx.channel.send("주식 <종목명> 양식에 맞게 입력하여주세요.")"""
+    await ctx.channel.send("주식 <종목명> 양식에 맞게 입력하여주세요.")
 
 
 client.run(token)
