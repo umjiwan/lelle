@@ -3,6 +3,7 @@
 from urllib import parse
 from bs4 import BeautifulSoup
 import requests
+import re
 
 class stock:
     def __init__(self, name):
@@ -14,52 +15,59 @@ class stock:
         response = requests.get(url)
         html = response.text
         soup = BeautifulSoup(html, "html.parser")
-        base_selector = "#content > div.section_search > table > tbody > tr:nth-child(1) > td:nth-child("
+        # base_selector = "#content > div.section_search > table > tbody > tr:nth-child(1) > td:nth-child("
+        
+        selector = "#content > div.section_search > table > tbody > tr:nth-child(1) > td.tit > a"
+        st_code = str(soup.select_one(selector))[31:37]
 
+        url = "https://finance.naver.com/item/main.naver?code=" + st_code
+        
+        response = requests.get(url)
+        html = response.text
+        soup = BeautifulSoup(html, "html.parser")
+
+        updown_select = "div > p.no_today"
+        updown_code = str(soup.select_one(updown_select))
+
+        updown = re.findall(r"<em class=\".+", updown_code)[0]
+        updown = updown[11:-2]
+
+        self.updown = updown
         self.soup = soup
-        self.base_selector = base_selector
-
+        self.st_code = st_code
+        # self.base_selector = base_selector
 
     def name(self):
-        selector = "1)"
-        name = (self.soup).select_one(self.base_selector + selector)
-        return name.text[:-2]
+        selector = "#middle > div.h_company > div.wrap_company > h2 > a"
+        name = (self.soup).select_one(selector)
+        return name.text
 
     def code(self):
-        selector = "#content > div.section_search > table > tbody > tr:nth-child(1) > td.tit > a"
-        code = (self.soup).select_one(selector)
-        return str(code)[31:37]
+        return self.st_code
 
     def price(self):
-        selector = "2)"
-        price = (self.soup).select_one(self.base_selector + selector)
+        selector = f"div > p.no_today > em.{self.updown} > span.blind"
+        price = (self.soup).select_one(selector)
         return price.text
 
     def compare(self):
-        selector = "3)"
-        compare = (self.soup).select_one(self.base_selector + selector)
+        selector = f"div > p.no_exday > em.{self.updown} > span.blind"
+        compare = int((self.soup).select_one(selector).text)
+
+        ics_selector = f"div > p.no_exday > em.{self.updown} > span"
+        increase = (self.soup).select_one(ics_selector).text
+
+        if increase != "상승":
+            compare *= -1
+
+        return compare
         
-        if str(compare)[30:32] != "상승":
-            return int(compare.text) * -1
+    def pe_compare(self):
+        pm_selector = "#chart_area > div.rate_info > div > p.no_exday > em:nth-child(4) > span"
+        pm = (self.soup).select_one(pm_selector).text
 
-        return int(compare.text)
-        
-    def fluctuating(self):
-        selector = "4)"
-        fluctuating = (self.soup).select_one(self.base_selector + selector)
-        return fluctuating.text
+        sh_selector = pm_selector + ".blind"
+        sh = (self.soup).select_one(sh_selector).text
 
-    def sellask(self):
-        selector = "5)"
-        sellask = (self.soup).select_one(self.base_selector + selector)
-        return sellask.text
-
-    def buyask(self):
-        selector = "6)"
-        buyask = (self.soup).select_one(self.base_selector + selector)
-        return buyask.text
-
-    def transaction(self):
-        selector = "7)"
-        transaction = (self.soup).select_one(self.base_selector + selector)
-        return transaction.text
+        return pm + sh + "%"
+    
