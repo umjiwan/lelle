@@ -2,7 +2,9 @@ import discord
 import asyncio
 import os.path
 import sys
+from discord import colour
 from discord.ext import commands
+from discord.ext.commands.converter import EmojiConverter
 import lelle
 
 ing = discord.Activity(type=discord.ActivityType.listening, name="u도움말")
@@ -68,7 +70,12 @@ async def ul_language(ctx, u_option, sentence):
     ul_lang = lelle.ulang(sentence)
     if u_option == "암호화":
         result = ul_lang.encryption()
-        await ctx.channel.send(result)
+
+        embed = discord.Embed(title="ulang  |  Encryption", color=0x99ddff)
+        embed.add_field(name="원래문장", value=sentence)
+        embed.add_field(name="암호화된 문장", value=result)
+
+        await ctx.channel.send(embed=embed)
 
     elif u_option == "복호화":
         pass
