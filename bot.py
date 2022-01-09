@@ -27,8 +27,8 @@ token = str(f.read())
 f.close()
 
 @client.command(aliases=["도움말"])
-async def lelle_help(ctx, *, name:str):
-    if name == "":
+async def lelle_help(ctx, *, h_name:str):
+    if h_name == "":
         embed = discord.Embed(color=0xffffff)
         embed.set_author(name="lelle  |  도움말")
         embed.add_field(name="소개", value="디스코드를 더 편리하게, 크롤링 기반 렐레봇", inline=False)
@@ -38,7 +38,7 @@ async def lelle_help(ctx, *, name:str):
         await ctx.channel.send(embed=embed)
  
 
-    elif name == "주식":
+    elif h_name == "주식":
         pass
 
 
@@ -62,6 +62,18 @@ async def stock(ctx, *, s_name:str):
 @stock.error
 async def stock_error(ctx, error):
     await ctx.channel.send("주식 <종목명> 양식에 맞게 입력하여주세요.")
+
+@client.command(aliases=["유러"])
+async def ul_language(ctx, u_option, sentence):
+    ul_lang = lelle.ulang(sentence)
+    if u_option == "암호화":
+        result = ul_lang.encryption()
+        await ctx.channel.send(result)
+
+    elif u_option == "복호화":
+        pass
+    else:
+        pass
 
 
 client.run(token)

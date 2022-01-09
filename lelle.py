@@ -76,4 +76,25 @@ class stock:
         sh = (self.soup).select_one(sh_selector).text
 
         return pm + sh + "%"
-    
+
+class ulang:
+    def __init__(self, sentence):
+        binary = "".join(format(c, 'b') for c in bytearray(sentence, "utf-8"))
+        binary_list = list(binary)
+
+        self.sentence = sentence
+        self.binary = binary
+        self.binary_list = binary_list
+
+    def encryption(self):
+        change_list = []
+
+        for count in self.binary_list:
+            if count == "0":
+                change_list.append("u")
+            elif count == "1":
+                change_list.append("l")
+
+        ul_sentence = "".join(change_list)
+        
+        return ul_sentence
