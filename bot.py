@@ -72,8 +72,8 @@ async def ul_language(ctx, u_option, sentence):
         result = ul_lang.encryption()
 
         embed = discord.Embed(title="ulang  |  Encryption", color=0x99ddff)
-        embed.add_field(name="원래문장", value=sentence, inline=False)
-        embed.add_field(name="암호화된 문장", value=result, inline=False)
+        embed.add_field(name="문장", value=sentence, inline=False)
+        embed.add_field(name="유러 문장", value=result, inline=False)
 
         await ctx.channel.send(embed=embed)
 
