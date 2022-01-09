@@ -53,7 +53,7 @@ async def stock(ctx, *, s_name:str):
     compare = stock.compare()
     pe_compare = stock.pe_compare()
 
-    embed = discord.Embed(title=(f"{name}  |  {code}"), color=0xffffff)
+    embed = discord.Embed(title=(f"{name}  |  {code}"), color=0x99ddff)
     embed.add_field(name="현재가", value=(f"{price}원"), inline=True)
     embed.add_field(name="등락율", value=pe_compare, inline=True)
     embed.add_field(name="전일대비", value=compare, inline=True)
@@ -72,8 +72,8 @@ async def ul_language(ctx, u_option, sentence):
         result = ul_lang.encryption()
 
         embed = discord.Embed(title="ulang  |  Encryption", color=0x99ddff)
-        embed.add_field(name="원래문장", value=sentence)
-        embed.add_field(name="암호화된 문장", value=result)
+        embed.add_field(name="원래문장", value=sentence, inline=False)
+        embed.add_field(name="암호화된 문장", value=result, inline=False)
 
         await ctx.channel.send(embed=embed)
 
