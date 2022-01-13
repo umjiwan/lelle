@@ -79,22 +79,34 @@ class stock:
 
 class ulang:
     def __init__(self, sentence):
-        binary = "".join(format(c, 'b') for c in bytearray(sentence, "utf-8"))
-        binary_list = list(binary)
-
         self.sentence = sentence
-        self.binary = binary
-        self.binary_list = binary_list
 
     def encryption(self):
+        binary = str(" ".join(format(c, 'b') for c in bytearray(self.sentence, "utf-8")))
+        binary_list = list(" " + binary)
         change_list = []
 
-        for count in self.binary_list:
-            if count == "0":
+        for i in binary_list:
+            if i == "0":
                 change_list.append("u")
-            elif count == "1":
+            elif i == "1":
                 change_list.append("l")
+            elif i == " ":
+                change_list.append(" ")
 
-        ul_sentence = "".join(change_list)
-        
-        return ul_sentence
+        result = "".join(change_list)
+        return result
+
+    def decryption(self):
+        list_sentence = list(self.sentence)
+        binary_list =[]
+
+        for i in list_sentence:
+            if i == "u":
+                binary_list.append("0")
+            elif i == "l":
+                binary_list.append("1")
+        print(binary_list)
+        binary_sentence = "".join(binary_list)
+
+        return binary_sentence
