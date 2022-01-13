@@ -32,15 +32,16 @@ f.close()
 async def lelle_help(ctx, help_option):
     if help_option == "주식":
         pass
-    else:
-        embed = discord.Embed(color=0xffffff)
-        embed.set_author(name="lelle  |  도움말")
-        embed.add_field(name="소개", value="디스코드를 더 편리하게, 크롤링 기반 렐레봇", inline=False)
-        embed.add_field(name="도움말 명령어", value="test", inline=False)
-        embed.add_field(name="u도움말 주식", value="주식 명령어 사용법을 알려준다.", inline=True)
+
+@lelle_help.error
+async def lelle_help_error(ctx, error):
+    embed = discord.Embed(color=0x99ddff)
+    embed.set_author(name="lelle  |  도움말")
+    embed.add_field(name="소개", value="크롤링 기반 렐레봇", inline=False)
+    embed.add_field(name="도움말 명령어", value="test", inline=False)
+    embed.add_field(name="u도움말 주식", value="주식 명령어 사용법을 알려준다.", inline=True)
     
     await ctx.channel.send(embed=embed)
-
 
 @client.command(aliases=["주식"])
 async def stock(ctx, *, s_name:str):
