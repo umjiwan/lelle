@@ -1,5 +1,6 @@
 # maby ul
 
+from unicodedata import decimal
 from urllib import parse
 from bs4 import BeautifulSoup
 import requests
@@ -83,7 +84,7 @@ class ulang:
 
     def encryption(self):
         binary = str(" ".join(format(c, 'b') for c in bytearray(self.sentence, "utf-8")))
-        binary_list = list(" " + binary)
+        binary_list = list(binary)
         change_list = []
 
         for i in binary_list:
@@ -93,20 +94,28 @@ class ulang:
                 change_list.append("l")
             elif i == " ":
                 change_list.append(" ")
-
+                
         result = "".join(change_list)
         return result
 
-    def decryption(self):
+"""    def decryption(self):
         list_sentence = list(self.sentence)
-        binary_list =[]
+        ulang_list =[]
 
         for i in list_sentence:
             if i == "u":
-                binary_list.append("0")
+                ulang_list.append("0")
             elif i == "l":
-                binary_list.append("1")
-        print(binary_list)
-        binary_sentence = "".join(binary_list)
+                ulang_list.append("1")
+            elif i == " ":
+                ulang_list.append(" ")
 
-        return binary_sentence
+        binary_list = "".join(ulang_list).split()
+        decimal_list = []
+
+        for binary in binary_list:
+            binary = "0b" + binary
+            decimal_list.append(format(int(binary,2), "x"))
+        
+        print(decimal_list)"""
+
