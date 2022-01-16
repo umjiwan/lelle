@@ -88,7 +88,9 @@ async def ul_language(ctx, u_option, sentence):
         await ctx.channel.send(embed=embed)
 
     elif u_option == "복호화":
-        pass
+        embed = discord.Embed(title="ulang  |  Decryption", color=0x99ddff)
+        embed.add_field(name="공지", value="복호화 기능은 개발중입니다. 😢", inline=False)
+
     else:
         pass
 
