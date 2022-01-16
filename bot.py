@@ -116,7 +116,7 @@ async def pi(ctx, user_input_pi):
     embed = discord.Embed(color=0x99ddff)
 
     embed.set_author(name="lelle  |  pi", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
-    embed.add_field(name=title_sentence[0], value=f"{index}자리 {title_sentence[1]}", inline=False)
+    embed.add_field(name=title_sentence[0], value=f"{index}자리{title_sentence[1]}", inline=False)
 
     await ctx.channel.send(embed=embed)
 
