@@ -100,10 +100,14 @@ async def pi(ctx, user_input_pi):
 
 @pi.error
 async def pi_error(ctx, error):
+    class_pi = lelle.pi()
+    data_pi = class_pi.return_pi(index=100)
+
     embed = discord.Embed(title="lelle | pi", color=0x99ddff)
     
-    embed.set_author(name="lelle  |  help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
-    embed.add_field(name="사용법", value="`u도움말 <명령어>`", inline=False)
+    embed.set_author(name="lelle  |  pi", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+    embed.add_field(name="원주율", value=data_pi, inline=False)
 
+    ctx.channel.send(embed=embed)
 
 client.run(token)
