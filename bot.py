@@ -108,6 +108,6 @@ async def pi_error(ctx, error):
     embed.set_author(name="lelle  |  pi", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
     embed.add_field(name="원주율", value=data_pi, inline=False)
 
-    ctx.channel.send(embed=embed)
+    await ctx.channel.send(embed=embed)
 
 client.run(token)
