@@ -1,3 +1,5 @@
+from dis import disco
+from winreg import EnumValue
 import discord
 import asyncio
 import os.path
@@ -31,12 +33,25 @@ f.close()
 @client.command(aliases=["도움말"])
 async def lelle_help(ctx, help_option):
     if help_option == "주식":
-        pass
+        embed = discord.Embed(color=0x99ddff)
+        embed.set_author(name="lelle | stock", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+        embed.add_field(name="소개", value="원하는 주식에 대한 정보를 알려드립니다.", inline=False)
+        embed.add_field(name="사용법", value="`u주식 <종목명|종목코드>`")
+        
+        await ctx.channel.send(embed=embed)
+
+    elif help_option == "유러":
+        embed = discord.Embed(color=0x99ddff)
+        embed.set_author(name="lelle | ulang", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+        embed.add_field(name="소개", value="문장을 유러로 암호화 해주거나 유러를 원래의 문장으로 복호화 해줍니다.", inline=False)
+        embed.add_field(name="사용법", value="`u유러 <암호화|복호화> <원하는 문장>`")
+
+        await ctx.channel.send(embed=embed)
 
 @lelle_help.error
 async def lelle_help_error(ctx, error):
     embed = discord.Embed(color=0x99ddff)
-    embed.set_author(name="lelle  |  도움말", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+    embed.set_author(name="lelle  |  help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
     embed.add_field(name="사용법", value="`u도움말 <명령어>`", inline=False)
     embed.add_field(name="명령어", value="`주식`, `유러`", inline=False)
     
