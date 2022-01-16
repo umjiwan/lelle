@@ -1,4 +1,6 @@
+from ast import alias
 from dis import disco
+from pydoc import cli
 import discord
 import asyncio
 import os.path
@@ -129,6 +131,15 @@ async def pi_error(ctx, error):
     
     embed.set_author(name="lelle  |  pi", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
     embed.add_field(name="원주율", value=data_pi, inline=False)
+
+    await ctx.channel.send(embed=embed)
+
+@client.command(aliases=["핑"])
+async def ul_ping(ctx):
+    embed = discord.Embed(color=0x99ddff)
+    
+    embed.set_author(name="lelle  |  ping", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+    embed.add_field(name="pong! 🏓", value=f"`{client.latency}`ms", inline=False)
 
     await ctx.channel.send(embed=embed)
 
