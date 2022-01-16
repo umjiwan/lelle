@@ -116,6 +116,28 @@ class ulang:
         for binary in binary_list:
             binary = "0b" + binary
             decimal_list.append(format(int(binary,2), "x"))
-        
-        print(decimal_list)"""
 
+            print(decimal_list)"""
+
+class perimeter:
+    def __init__(self):
+        f = open("data/perimeter.txt", "r")
+        perimeter_data = f.readline()
+
+        self.perimeter_data = perimeter_data
+
+    def return_perimeter(self, index=2):
+        return self.perimeter_data[:2 + index]
+    
+    def compare(self, user_input_pi):
+        if user_input_pi == self.perimeter_data[:len(user_input_pi)]:
+            return True, len(user_input_pi) 
+
+        else:
+            for i in range(len(self.perimeter_data[:len(user_input_pi)])):
+                if self.perimeter_data[:len(user_input_pi)][i] == user_input_pi[i]:
+                    pass
+                else:
+                    not_match_nu = i
+                    break
+            return False, not_match_nu
