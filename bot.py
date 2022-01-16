@@ -111,7 +111,7 @@ async def pi(ctx, user_input_pi):
     if compare:
         title_sentence = ["맞았습니다!", "까지 외우셨습니다."]
     else:
-        title_sentence = ["틀렸습니다!", ["부터 틀리셨습니다."]]
+        title_sentence = ["틀렸습니다!", "부터 틀리셨습니다."]
     
     embed = discord.Embed(color=0x99ddff)
 
