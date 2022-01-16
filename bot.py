@@ -139,7 +139,7 @@ async def ul_ping(ctx):
     embed = discord.Embed(color=0x99ddff)
     
     embed.set_author(name="lelle  |  ping", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
-    embed.add_field(name="pong! 🏓", value=f"`{client.latency}`ms", inline=False)
+    embed.add_field(name="pong! 🏓", value=f"`{int(client.latency*1000)}`ms", inline=False)
 
     await ctx.channel.send(embed=embed)
 
