@@ -94,5 +94,16 @@ async def ul_language(ctx, u_option, sentence):
     else:
         pass
 
+@client.command(aliases=["원주율", "파이"])
+async def pi(ctx, user_input_pi):
+    pass
+
+@pi.error
+async def pi_error(ctx, error):
+    embed = discord.Embed(title="lelle | pi", color=0x99ddff)
+    
+    embed.set_author(name="lelle  |  help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+    embed.add_field(name="사용법", value="`u도움말 <명령어>`", inline=False)
+
 
 client.run(token)
