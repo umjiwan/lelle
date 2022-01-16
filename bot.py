@@ -1,3 +1,4 @@
+from dis import disco
 import discord
 import asyncio
 import os.path
@@ -104,7 +105,20 @@ async def ul_language(ctx, u_option, sentence):
 
 @client.command(aliases=["원주율", "파이"])
 async def pi(ctx, user_input_pi):
-    pass
+    class_pi = lelle.pi()
+    compare, index = class_pi.compare(user_input_pi)
+    
+    if compare:
+        title_sentence = ["맞았습니다!", "까지 외우셨습니다."]
+    else:
+        title_sentence = ["틀렸습니다!", ["부터 틀리셨습니다."]]
+    
+    embed = discord.Embed(color=0x99ddff)
+
+    embed.set_author(name="lelle  |  pi", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+    embed.add_field(name=title_sentence[0], value=f"{index}자리 {title_sentence[1]}", inline=False)
+
+    await ctx.channel.send(embed=embed)
 
 @pi.error
 async def pi_error(ctx, error):
