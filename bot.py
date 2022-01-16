@@ -143,8 +143,6 @@ async def pi_error(ctx, error):
 @client.command(aliases=["핑"])
 async def ul_ping(ctx):
     embed = discord.Embed(color=0x99ddff)
-    
-    embed.set_author(name="lelle  |  ping")
     embed.add_field(name="pong! 🏓", value=f"`{int(client.latency*1000)}`ms", inline=False)
 
     await ctx.channel.send(embed=embed)
