@@ -49,7 +49,7 @@ async def lelle_help(ctx, help_option):
         embed = discord.Embed(color=0x99ddff)
         embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
         embed.add_field(name="소개", value="원주율을 보거나 외울 수 있습니다.", inline=False)
-        embed.add_field(name="사용법", value="`u<원주율|파이>`: 원주율을 보여줍니다 (900자리 까지)\n`u<원주율|파이> <원주율>`: 입력한 원주율이 맞는지 확인해주고 틀렸다면 어디가 틀렸는지 알려줍니다.")
+        embed.add_field(name="사용법", value="`u<원주율|파이>`: 원주율을 보여줍니다 (900자리 까지)\n`u<원주율|파이> <원주율>`: 입력한 원주율 값을 검토해 만약 틀렸다면 틀린 부분을 알려줍니다.")
 
         await ctx.channel.send(embed=embed)
 
