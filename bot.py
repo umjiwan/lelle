@@ -62,6 +62,8 @@ async def lelle_help(ctx, help_option):
         embed.add_field(name="소개", value="봇의 핑 즉 레이턴시(지연시간) 을 출력해준다.", inline=False)
         embed.add_field(name="사용법", value="`u핑`")
 
+        await ctx.channel.send(embed=embed)
+
 @lelle_help.error
 async def lelle_help_error(ctx, error):
     embed = discord.Embed(color=0x99ddff)
