@@ -126,8 +126,8 @@ class pi:
 
         self.pi_data = pi_data
 
-    def return_pi(self, index=2):
-        return self.pi_data[:2 + index]
+    def return_pi(self, index=3):
+        return self.pi_data[:1 + index]
     
     def compare(self, user_input_pi):
         if user_input_pi == self.pi_data[:len(user_input_pi)]:
