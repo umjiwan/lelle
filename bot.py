@@ -36,10 +36,9 @@ async def lelle_help(ctx, help_option):
 @lelle_help.error
 async def lelle_help_error(ctx, error):
     embed = discord.Embed(color=0x99ddff)
-    embed.set_author(name="lelle  |  도움말")
-    embed.add_field(name="소개", value="크롤링 기반 렐레봇", inline=False)
-    embed.add_field(name="도움말 명령어", value="test", inline=False)
-    embed.add_field(name="u도움말 주식", value="주식 명령어 사용법을 알려준다.", inline=True)
+    embed.set_author(name="lelle  |  도움말", icon_url="img/lelle_ico.png")
+    embed.add_field(name="사용법", value="`u도움말 <명령어>`", inline=False)
+    embed.add_field(name="명령어", value="`주식`, `유러`", inline=False)
     
     await ctx.channel.send(embed=embed)
 
