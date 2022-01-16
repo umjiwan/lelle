@@ -1,10 +1,7 @@
-from dis import disco
-from winreg import EnumValue
 import discord
 import asyncio
 import os.path
 import sys
-from discord import colour
 from discord.ext import commands
 from discord.ext.commands.converter import EmojiConverter
 import lelle
