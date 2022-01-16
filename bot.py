@@ -31,7 +31,7 @@ f.close()
 async def lelle_help(ctx, help_option):
     if help_option == "주식":
         embed = discord.Embed(color=0x99ddff)
-        embed.set_author(name="lelle | stock", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
         embed.add_field(name="소개", value="원하는 주식에 대한 정보를 알려드립니다.", inline=False)
         embed.add_field(name="사용법", value="`u주식 <종목명|종목코드>`")
         
@@ -39,9 +39,17 @@ async def lelle_help(ctx, help_option):
 
     elif help_option == "유러":
         embed = discord.Embed(color=0x99ddff)
-        embed.set_author(name="lelle | ulang", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
         embed.add_field(name="소개", value="문장을 유러로 암호화 해주거나 유러를 원래의 문장으로 복호화 해줍니다.", inline=False)
         embed.add_field(name="사용법", value="`u유러 <암호화|복호화> <원하는 문장>`")
+
+        await ctx.channel.send(embed=embed)
+
+    elif help_option == "원주율" or help_option == "파이":
+        embed = discord.Embed(color=0x99ddff)
+        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+        embed.add_field(name="소개", value="원주율을 보거나 외울 수 있습니다.", inline=False)
+        embed.add_field(name="사용법", value="`u<원주율|파이>`: 원주율을 보여줍니다 (900자리 까지)\n`u<원주율|파이> <원주율>`: 입력한 원주율이 맞는지 확인해주고 틀렸다면 어디가 틀렸는지 알려줍니다.")
 
         await ctx.channel.send(embed=embed)
 
@@ -50,7 +58,7 @@ async def lelle_help_error(ctx, error):
     embed = discord.Embed(color=0x99ddff)
     embed.set_author(name="lelle  |  help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
     embed.add_field(name="사용법", value="`u도움말 <명령어>`", inline=False)
-    embed.add_field(name="명령어", value="`주식`, `유러`", inline=False)
+    embed.add_field(name="명령어", value="`주식`, `유러`, `원주율`", inline=False)
     
     await ctx.channel.send(embed=embed)
 
@@ -101,9 +109,9 @@ async def pi(ctx, user_input_pi):
 @pi.error
 async def pi_error(ctx, error):
     class_pi = lelle.pi()
-    data_pi = class_pi.return_pi(index=100)
+    data_pi = class_pi.return_pi(index=900)
 
-    embed = discord.Embed(title="lelle | pi", color=0x99ddff)
+    embed = discord.Embed(color=0x99ddff)
     
     embed.set_author(name="lelle  |  pi", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
     embed.add_field(name="원주율", value=data_pi, inline=False)
