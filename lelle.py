@@ -119,23 +119,23 @@ class ulang:
 
             print(decimal_list)"""
 
-class perimeter:
+class pi:
     def __init__(self):
-        f = open("data/perimeter.txt", "r")
-        perimeter_data = f.readline()
+        f = open("data/pi.txt", "r")
+        pi_data = f.readline()
 
-        self.perimeter_data = perimeter_data
+        self.pi_data = pi_data
 
-    def return_perimeter(self, index=2):
-        return self.perimeter_data[:2 + index]
+    def return_pi(self, index=2):
+        return self.pi_data[:2 + index]
     
     def compare(self, user_input_pi):
-        if user_input_pi == self.perimeter_data[:len(user_input_pi)]:
+        if user_input_pi == self.pi_data[:len(user_input_pi)]:
             return True, len(user_input_pi) 
 
         else:
-            for i in range(len(self.perimeter_data[:len(user_input_pi)])):
-                if self.perimeter_data[:len(user_input_pi)][i] == user_input_pi[i]:
+            for i in range(len(self.pi_data[:len(user_input_pi)])):
+                if self.pi_data[:len(user_input_pi)][i] == user_input_pi[i]:
                     pass
                 else:
                     not_match_nu = i
