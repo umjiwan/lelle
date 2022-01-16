@@ -56,12 +56,18 @@ async def lelle_help(ctx, help_option):
 
         await ctx.channel.send(embed=embed)
 
+    elif help_option == "핑":
+        embed = discord.Embed(color=0x99ddff)
+        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+        embed.add_field(name="소개", value="봇의 핑 즉 레이턴시(지연시간) 을 출력해준다.", inline=False)
+        embed.add_field(name="사용법", value="`u핑`")
+
 @lelle_help.error
 async def lelle_help_error(ctx, error):
     embed = discord.Embed(color=0x99ddff)
     embed.set_author(name="lelle  |  help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
     embed.add_field(name="사용법", value="`u도움말 <명령어>`", inline=False)
-    embed.add_field(name="명령어", value="`주식`, `유러`, `원주율`", inline=False)
+    embed.add_field(name="명령어", value="`주식`, `유러`, `원주율`, `핑`", inline=False)
     
     await ctx.channel.send(embed=embed)
 
@@ -138,7 +144,7 @@ async def pi_error(ctx, error):
 async def ul_ping(ctx):
     embed = discord.Embed(color=0x99ddff)
     
-    embed.set_author(name="lelle  |  ping", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+    embed.set_author(name="lelle  |  ping")
     embed.add_field(name="pong! 🏓", value=f"`{int(client.latency*1000)}`ms", inline=False)
 
     await ctx.channel.send(embed=embed)
