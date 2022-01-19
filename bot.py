@@ -1,6 +1,7 @@
 from ast import alias
 from dis import disco
 from pydoc import cli
+from unittest import result
 import discord
 import asyncio
 import os.path
@@ -164,15 +165,16 @@ async def one_word_error(ctx, error):
     await ctx.channel.send(f"양식에 맞게 입력해주세요.")
 
 @client.command(aliases=["프로필"])
-async def user_profile(ctx, userid: discord.Member=None):
-    if userid == None:
-        userid = ctx.author.id
+async def user_profile(ctx, member: discord.Embed=None):
+    if member == None:
+        result = ctx.author
+    else:
+        result = member.author
 
-    username = ctx.author.display_name
-    userimg = ctx.author.avatar_url
-    usertag = ctx.author.mention
-    print(userid)
-
+    username = result.display_name
+    userimg = result.avatar_url
+    usertag = result.mention
+    userid = result.id
 
     pw = lelle.profile_word(userid)
     userword = pw.ViewWord()
