@@ -165,7 +165,7 @@ async def one_word_error(ctx, error):
     await ctx.channel.send(f"양식에 맞게 입력해주세요.")
 
 @client.command(aliases=["프로필"])
-async def user_profile(ctx, member: discord.Embed=None):
+async def user_profile(ctx, member: discord.Member=None):
     if member == None:
         result = ctx.author
     else:
