@@ -169,7 +169,7 @@ async def user_profile(ctx):
     usertag = ctx.author.mention
 
     pw = lelle.profile_word(userid)
-    word = pw.ViewWord()
+    userword = pw.ViewWord()
     
     await ctx.channel.send(f"{usertag}님의 프로필")
 
@@ -177,8 +177,8 @@ async def user_profile(ctx):
 
     embed.set_author(name="lelle  |  profile", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
     embed.add_field(name="닉네임", value=username, inline=False)
-    embed.add_field(name="한마디", value=word, inline=False)
-    embed.thumbnail(url=userimg)
+    embed.add_field(name="한마디", value=userword, inline=False)
+    # embed.thumbnail(url=userimg)
 
     await ctx.channel.send(embed=embed)
 
