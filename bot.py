@@ -34,7 +34,7 @@ f.close()
 async def lelle_help(ctx, help_option):
     if help_option == "주식":
         embed = discord.Embed(color=0x99ddff)
-        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
         embed.add_field(name="소개", value="원하는 주식에 대한 정보를 알려드립니다.", inline=False)
         embed.add_field(name="사용법", value="`u주식 <종목명|종목코드>`")
         
@@ -42,7 +42,7 @@ async def lelle_help(ctx, help_option):
 
     elif help_option == "유러":
         embed = discord.Embed(color=0x99ddff)
-        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
         embed.add_field(name="소개", value="문장을 유러로 암호화 해주거나 유러를 원래의 문장으로 복호화 해줍니다.", inline=False)
         embed.add_field(name="사용법", value="`u유러 <암호화|복호화> <원하는 문장>`")
 
@@ -50,7 +50,7 @@ async def lelle_help(ctx, help_option):
 
     elif help_option == "원주율" or help_option == "파이":
         embed = discord.Embed(color=0x99ddff)
-        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
         embed.add_field(name="소개", value="원주율을 보거나 외울 수 있습니다.", inline=False)
         embed.add_field(name="사용법", value="`u<원주율|파이>`: 원주율을 보여줍니다 (900자리 까지)\n`u<원주율|파이> <원주율>`: 입력한 원주율 값을 검토해 만약 틀렸다면 틀린 부분을 알려줍니다.")
 
@@ -58,7 +58,7 @@ async def lelle_help(ctx, help_option):
 
     elif help_option == "핑":
         embed = discord.Embed(color=0x99ddff)
-        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
         embed.add_field(name="소개", value="봇의 핑 즉 레이턴시(지연시간) 을 출력해준다.", inline=False)
         embed.add_field(name="사용법", value="`u핑`")
 
@@ -67,7 +67,7 @@ async def lelle_help(ctx, help_option):
 @lelle_help.error
 async def lelle_help_error(ctx, error):
     embed = discord.Embed(color=0x99ddff)
-    embed.set_author(name="lelle  |  help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+    embed.set_author(name="lelle  |  help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
     embed.add_field(name="사용법", value="`u도움말 <명령어>`", inline=False)
     embed.add_field(name="명령어", value="`주식`, `유러`, `원주율`, `핑`", inline=False)
     
@@ -125,7 +125,7 @@ async def pi(ctx, user_input_pi):
     
     embed = discord.Embed(color=0x99ddff)
 
-    embed.set_author(name="lelle  |  pi", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+    embed.set_author(name="lelle  |  pi", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
     embed.add_field(name=title_sentence[0], value=f"{index}자리{title_sentence[1]}", inline=False)
 
     await ctx.channel.send(embed=embed)
@@ -137,7 +137,7 @@ async def pi_error(ctx, error):
 
     embed = discord.Embed(color=0x99ddff)
     
-    embed.set_author(name="lelle  |  pi", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/img/lelle_ico.png")
+    embed.set_author(name="lelle  |  pi", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
     embed.add_field(name="원주율", value=data_pi, inline=False)
 
     await ctx.channel.send(embed=embed)
@@ -148,5 +148,19 @@ async def ul_ping(ctx):
     embed.add_field(name="pong! 🏓", value=f"`{int(client.latency*1000)}`ms", inline=False)
 
     await ctx.channel.send(embed=embed)
+
+@client.command(aliases=["한마디"])
+async def one_word(ctx, word_option, *word):
+    userid = ctx.author.id    
+    pw = lelle.profile_word(userid)
+
+    if word_option == "작성":
+        pw.WriteWord(word)
+    elif word_option == "삭제":
+        pw.DeleteWord()
+    else:
+        await ctx.channel.send("양식에 맞게 입력하여 주세요.")
+
+    await ctx.channel.send(f"한마디가 {word_option} 되었습니다!")
 
 client.run(token)
