@@ -188,5 +188,8 @@ class profile_word:
         cursor.execute(f"SELECT word From word WHERE userid='{self.userid}'")
         word = cursor.fetchone()
 
+        if word == None:
+            return "한마디를 작성하시지 않으셨습니다."
+
         return word[0]
         
