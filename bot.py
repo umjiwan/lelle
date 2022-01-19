@@ -67,12 +67,28 @@ async def lelle_help(ctx, help_option):
 
         await ctx.channel.send(embed=embed)
 
+    elif help_option == "프로필":
+        embed = discord.Embed(color=0x99ddff)
+        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
+        embed.add_field(name="소개", value="자신이나 다른 사람의 정보를 알려준다.", inline=False)
+        embed.add_field(name="사용법", value="`u프로필`\n`u프로필 <@멘션>`")
+
+        await ctx.channel.send(embed=embed)
+
+    elif help_option == "한마디":
+        embed = discord.Embed(color=0x99ddff)
+        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
+        embed.add_field(name="소개", value="프로필에서 확인할 수 있는 한마디를 설정해준다.", inline=False)
+        embed.add_field(name="사용법", value="`u한마디 <등록할 한마디>`")
+
+        await ctx.channel.send(embed=embed)
+
 @lelle_help.error
 async def lelle_help_error(ctx, error):
     embed = discord.Embed(color=0x99ddff)
     embed.set_author(name="lelle  |  help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
     embed.add_field(name="사용법", value="`u도움말 <명령어>`", inline=False)
-    embed.add_field(name="명령어", value="`주식`, `유러`, `원주율`, `핑`", inline=False)
+    embed.add_field(name="명령어", value="`주식`, `유러`, `원주율`, `핑`, `프로필`, `한마디`", inline=False)
     
     await ctx.channel.send(embed=embed)
 
