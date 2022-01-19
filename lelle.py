@@ -1,10 +1,12 @@
 # maby ul
 
-from unicodedata import decimal
+from os import lseek
 from urllib import parse
 from bs4 import BeautifulSoup
 import requests
 import re
+import sqlite3
+import datetime
 
 class stock:
     def __init__(self, name):
@@ -141,3 +143,50 @@ class pi:
                     not_match_nu = i
                     break
             return False, not_match_nu
+
+class profile_word:
+    def __init__(self, userid):
+        self.userid = userid
+    
+    def WriteWord(self, word):
+        conn = sqlite3.connect("data/lelle.db")
+        cursor = conn.cursor()
+
+        cursor.execute("CREATE TABLE IF NOT EXISTS word (\
+                        userid text PRIMARY KEY, \
+                        word text, \
+                        writetime text)")
+
+        cursor.execute(f"SELECT userid FROM word WHERE userid='{self.userid}'")
+        result = cursor.fetchone()
+        now = str(datetime.datetime.now())
+
+        if result == None:
+            cursor.execute(f"INSERT INTO word VALUES(\
+                            '{self.userid}',\
+                            '{word}',\
+                            '{now}')")
+        else:
+            cursor.execute(f"UPDATE word SET word = '{word}' WHERE userid='{self.userid}'")
+        
+        conn.commit()
+        conn.close()
+
+    def DeleteWord(self):
+        conn = sqlite3.connect("data/lelle.db")
+        cursor = conn.cursor()
+
+        cursor.execute(f"DELETE FROM word WHERE userid='{self.userid}'")
+        
+        conn.commit()
+        conn.close()
+
+    def ViewWord(self):
+        conn = sqlite3.connect("data/lelle.db")
+        cursor = conn.cursor()
+
+        cursor.execute(f"SELECT word From word WHERE userid='{self.userid}'")
+        word = cursor.fetchone()
+
+        return word[0]
+        
