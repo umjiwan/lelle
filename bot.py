@@ -8,6 +8,11 @@ import sys
 from discord.ext import commands
 from discord.ext.commands.converter import EmojiConverter
 import lelle
+from discord.ext.commands import Context, errors
+from discord.ext.commands.converter import (Converter, MemberConverter,
+                                            UserConverter)
+import re
+from typing import Union
 
 ing = discord.Activity(type=discord.ActivityType.listening, name="u도움말")
 client = commands.Bot(status=discord.Status.online, activity=ing, command_prefix="u")
@@ -29,6 +34,38 @@ f.close()
 f = open("token.txt", "r+")
 token = str(f.read())
 f.close()
+
+class SpecialMemberConverter(Converter): # 출처 https://github.com/janu8ry/kkutbot/blob/a7c60d0236b6c78ad7e00d18be3bc182823ad73c/ext/converter.py#L10
+    """User & Member Converter without Member Intents"""
+
+    async def convert(self, ctx: Context, argument: str) -> Union[discord.User, discord.Member]:
+        argument = argument.lstrip()
+
+        if not argument:
+            return ctx.author
+
+        try:
+            return await MemberConverter().convert(ctx, argument)
+        except errors.MemberNotFound:
+            pass
+        try:
+            return await UserConverter().convert(ctx, argument)
+        except errors.UserNotFound:
+            pass
+
+        if argument.isdecimal():  # if argument is user id
+            user = await ctx.bot.db.user.find_one({'_id': int(argument)})
+            return await ctx.bot.fetch_user(user['_id'])
+        else:
+            if re.match(r"<@!?([0-9]+)>$", argument):  # if argument is mention
+                return await ctx.bot.fetch_user(int(re.findall(r'\d+', argument)[0]))
+            else:
+                user = await ctx.bot.db.user.find_one({'_name': str(argument)})
+                if user:  # if argument is user name
+                    return await ctx.bot.fetch_user(user['_id'])
+                else:
+                    raise errors.BadArgument
+
 
 @client.command(aliases=["도움말"])
 async def lelle_help(ctx, help_option):
@@ -162,8 +199,7 @@ async def one_word_error(ctx, error):
     await ctx.channel.send(f"양식에 맞게 입력해주세요.")
 
 @client.command(aliases=["프로필"])
-async def user_profile(ctx):
-    userid = ctx.author.id
+async def user_profile(ctx, userid: SpecialMemberConverter()):
     username = ctx.author.display_name
     userimg = ctx.author.avatar_url
     usertag = ctx.author.mention
