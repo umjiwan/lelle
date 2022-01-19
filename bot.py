@@ -150,17 +150,23 @@ async def ul_ping(ctx):
     await ctx.channel.send(embed=embed)
 
 @client.command(aliases=["한마디"])
-async def one_word(ctx, word_option, *, word):
+async def one_word(ctx, *, word):
     userid = ctx.author.id    
     pw = lelle.profile_word(userid)
+    pw.WriteWord(word)
 
-    if word_option == "작성":
-        pw.WriteWord(word)
-    elif word_option == "삭제":
-        pw.DeleteWord()
-    else:
-        await ctx.channel.send("양식에 맞게 입력하여 주세요.")
+    await ctx.channel.send(f"한마디가 등록 되었습니다!")
 
-    await ctx.channel.send(f"한마디가 {word_option} 되었습니다!")
+@one_word.error
+async def one_word_error(ctx, error):
+    await ctx.channel.send(f"양식에 맞게 입력해주세요.")
 
+@client.command(aliases=["프로필"])
+async def user_profile(ctx):
+    userid = ctx.author.id
+    pw = lelle.profile_word(userid)
+    word = pw.ViewWord()
+
+    await ctx.channel.send(word)
+    
 client.run(token)
