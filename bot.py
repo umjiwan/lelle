@@ -150,7 +150,7 @@ async def ul_ping(ctx):
     await ctx.channel.send(embed=embed)
 
 @client.command(aliases=["한마디"])
-async def one_word(ctx, word_option, *word):
+async def one_word(ctx, word_option, *, word):
     userid = ctx.author.id    
     pw = lelle.profile_word(userid)
 
