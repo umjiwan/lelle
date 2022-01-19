@@ -9,6 +9,7 @@ from discord.ext import commands
 from discord.ext.commands.converter import EmojiConverter
 import lelle
 
+
 ing = discord.Activity(type=discord.ActivityType.listening, name="u도움말")
 client = commands.Bot(status=discord.Status.online, activity=ing, command_prefix="u")
 
@@ -29,6 +30,7 @@ f.close()
 f = open("token.txt", "r+")
 token = str(f.read())
 f.close()
+
 
 @client.command(aliases=["도움말"])
 async def lelle_help(ctx, help_option):
@@ -165,9 +167,12 @@ async def one_word_error(ctx, error):
 async def user_profile(ctx, userid: discord.Member=None):
     if userid == None:
         userid = ctx.author.id
+
     username = ctx.author.display_name
     userimg = ctx.author.avatar_url
     usertag = ctx.author.mention
+    print(userid)
+
 
     pw = lelle.profile_word(userid)
     userword = pw.ViewWord()
