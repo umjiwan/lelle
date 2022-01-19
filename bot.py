@@ -203,6 +203,8 @@ async def user_profile(ctx, userid: SpecialMemberConverter()):
     username = ctx.author.display_name
     userimg = ctx.author.avatar_url
     usertag = ctx.author.mention
+    print(userid)
+
 
     pw = lelle.profile_word(userid)
     userword = pw.ViewWord()
