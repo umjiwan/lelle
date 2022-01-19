@@ -169,7 +169,7 @@ async def user_profile(ctx, member: discord.Member=None):
     if member == None:
         result = ctx.author
     else:
-        result = member.author
+        result = member
 
     username = result.display_name
     userimg = result.avatar_url
