@@ -14,13 +14,13 @@ import lelle
 ing = discord.Activity(type=discord.ActivityType.listening, name="u도움말")
 client = commands.Bot(status=discord.Status.online, activity=ing, command_prefix="u")
 
-if os.path.isfile("token.txt"):
+if os.path.isfile("data/token.txt"):
     pass
 else:
-    f = open("token.txt", "w")
+    f = open("data/token.txt", "w")
     f.close()
 
-f = open("token.txt", "r+")
+f = open("data/token.txt", "r+")
 
 if f.read() == "":
     print("Write token in the token.txt")
@@ -28,7 +28,7 @@ if f.read() == "":
     sys.exit()
 f.close()
     
-f = open("token.txt", "r+")
+f = open("data/token.txt", "r+")
 token = str(f.read())
 f.close()
 
