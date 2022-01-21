@@ -1,4 +1,4 @@
 .DS_Store
 __pycache__
-token.txt
+data/token.txt
 data/lelle.db
