@@ -146,9 +146,6 @@ class pi:
 
 class profile_word:
     def __init__(self, userid):
-        self.userid = userid
-    
-    def WriteWord(self, word):
         conn = sqlite3.connect("data/lelle.db")
         cursor = conn.cursor()
 
@@ -157,6 +154,14 @@ class profile_word:
                         word text, \
                         writetime text)")
 
+        conn.commit()
+        conn.close()
+        
+        self.userid = userid
+    
+    def WriteWord(self, word):
+        conn = sqlite3.connect("data/lelle.db")
+        cursor = conn.cursor()
         cursor.execute(f"SELECT userid FROM word WHERE userid='{self.userid}'")
         result = cursor.fetchone()
         now = str(datetime.datetime.now())
@@ -192,4 +197,80 @@ class profile_word:
             return "한마디를 작성하시지 않으셨습니다."
 
         return word[0]
+
+class Dday:
+    def __init__(self, userid, day, honne=True):
+
+        conn = sqlite3.connect("data/lelle.db")
+        cursor = conn.cursor()
+
+        cursor.execute("CREATE TABLE IF NOT EXISTS dday (\
+                        userid text PRIMARY KEY, \
+                        now text, \
+                        day text)")
+
+        conn.commit()
+        conn.close()
+
+        now = datetime.datetime.now()
+
+        self.now = now
+        self.day = day
+        self.userid = userid
+        self.honne = honne
+       
+    def SaveDday(self):
+        conn = sqlite3.connect("data/lelle.db")
+        cursor = conn.cursor()
+
+        cursor.execute(f"SELECT day FROM dday WHERE userid='{self.userid}'")
+        result = cursor.fetchone()
+
+        conn.commit()
+        conn.close
+
+        if result == None:
+            cursor.execute(f"INSERT INTO dday VALUES(\
+                            '{self.userid}',\
+                            '{self.now}',\
+                            '{self.day}')")
+        else:
+            cursor.execute(f"UPDATE dday SET day = '{self.day}' WHERE userid='{self.userid}'")
         
+        conn.commit()
+        conn.close()
+    
+    def DeleteDday(self):
+        conn = sqlite3.connect("data/lelle.db")
+        cursor = conn.cursor()
+
+        cursor.execute(f"DELETE FROM dday WHERE userid='{self.userid}'")
+        
+        conn.commit()
+        conn.close()
+
+    def ViewDday(self):
+        conn = sqlite3.connect("data/lelle.db")
+        cursor = conn.cursor()
+
+        cursor.execute(f"SELECT now, day FROM dday WHERE userid='{self.userid}'")
+        result = cursor.fetchone()
+        
+        conn.close()
+
+        if result == None:
+            return None
+
+        day = result[1].split("-")
+        day = datetime.datetime(int(day[0]), int(day[1]), int(day[2]))
+
+        dday = str((self.now - day).days + self.honne)
+
+        if dday[0] != "-":
+            dday = "+" + dday
+
+        return dday 
+        
+
+    
+

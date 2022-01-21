@@ -83,12 +83,20 @@ async def lelle_help(ctx, help_option):
 
         await ctx.channel.send(embed=embed)
 
+    elif help_option == "디데이":
+        embed = discord.Embed(color=0x99ddff)
+        embed.set_author(name="lelle | help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
+        embed.add_field(name="소개", value="프로필에서 확인할 수 있는 디데이를 설정해준다.", inline=False)
+        embed.add_field(name="사용법", value="`u디데이 등록 <0000-00-00>`: 디데이를 등록해준다\n`u디데이 삭제`: 등록되어있는 디데이를 삭제해준다.")
+
+        await ctx.channel.send(embed=embed)
+
 @lelle_help.error
 async def lelle_help_error(ctx, error):
     embed = discord.Embed(color=0x99ddff)
     embed.set_author(name="lelle  |  help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
     embed.add_field(name="사용법", value="`u도움말 <명령어>`", inline=False)
-    embed.add_field(name="명령어", value="`주식`, `유러`, `원주율`\n`핑`, `프로필`, `한마디`\n", inline=False)
+    embed.add_field(name="명령어", value="`주식`, `유러`, `원주율`,`핑`, `프로필`\n`한마디`, `디데이`", inline=False)
     
     await ctx.channel.send(embed=embed)
 
@@ -195,15 +203,47 @@ async def user_profile(ctx, member: discord.Member=None):
     pw = lelle.profile_word(userid)
     userword = pw.ViewWord()
     
+    dd = lelle.Dday(userid, "2022-01-01")
+    check_dd = dd.ViewDday()
+
     await ctx.channel.send(f"{usertag}님의 프로필")
 
     embed = discord.Embed(color=0x99ddff)
 
     embed.set_author(name="lelle  |  profile", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
-    embed.add_field(name="닉네임", value=username, inline=False)
+    embed.add_field(name="닉네임", value=username, inline=True)
+
+    if check_dd != None:
+        embed.add_field(name="D-Day", value=check_dd, inline=True)
+
     embed.add_field(name="한마디", value=userword, inline=False)
     embed.set_thumbnail(url=userimg)
 
     await ctx.channel.send(embed=embed)
+
+@client.command(aliases=["디데이"])
+async def SaveDday(ctx, *, sentence):
+    userid = ctx.author.id
+
+    option = sentence.split(" ")[0]
+
+    if len(sentence.split(" ")) != 1:
+        day = sentence.split(" ")[1]
+    else:
+        day = "0-0-0"
+
+    dd = lelle.Dday(userid, day)
+    
+    if option == "등록":
+        dd.SaveDday()
+        await ctx.channel.send("디데이가 등록되었습니다!")
+
+    elif option == "삭제":
+        dd.DeleteDday()
+        await ctx.channel.send("디데이가 삭제되었습니다!")
+
+@SaveDday.error
+async def Dday_error(ctx, error):
+    await ctx.channel.send("오류. 양식에 맞게 다시 입력하여주세요")
 
 client.run(token)
