@@ -88,7 +88,7 @@ async def lelle_help_error(ctx, error):
     embed = discord.Embed(color=0x99ddff)
     embed.set_author(name="lelle  |  help", icon_url="https://raw.githubusercontent.com/umjiwan/lelle/main/data/img/lelle_ico.png")
     embed.add_field(name="사용법", value="`u도움말 <명령어>`", inline=False)
-    embed.add_field(name="명령어", value="`주식`, `유러`, `원주율`, `핑`, `프로필`, `한마디`", inline=False)
+    embed.add_field(name="명령어", value="`주식`, `유러`, `원주율`\n`핑`, `프로필`, `한마디`\n", inline=False)
     
     await ctx.channel.send(embed=embed)
 
@@ -174,11 +174,11 @@ async def one_word(ctx, *, word):
     pw = lelle.profile_word(userid)
     pw.WriteWord(word)
 
-    await ctx.channel.send(f"한마디가 등록 되었습니다!")
+    await ctx.channel.send("한마디가 등록 되었습니다!")
 
 @one_word.error
 async def one_word_error(ctx, error):
-    await ctx.channel.send(f"양식에 맞게 입력해주세요.")
+    await ctx.channel.send("양식에 맞게 입력해주세요.")
 
 @client.command(aliases=["프로필"])
 async def user_profile(ctx, member: discord.Member=None):
