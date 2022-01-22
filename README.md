@@ -1,6 +1,6 @@
 # lelle.bot
 
-<img src="img/lelle_ico.png" width="30%">
+<img src="data/img/lelle_ico.png" width="30%">
 
 lelle(렐레) `2021. 12. 15` 개발 시작<br>
 
