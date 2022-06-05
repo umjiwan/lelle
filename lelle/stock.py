@@ -1,6 +1,8 @@
 from urllib import parse
 from bs4 import BeautifulSoup
 import requests
+import discord
+from discord.ext import commands
 
 class url:
     def __init__(self, stock: str):
@@ -30,6 +32,10 @@ class data:
         selector = "#middle > div.h_company > div.wrap_company > h2 > a"
         return self.soup.select_one(selector).text
 
+    def get_code(self):
+        selector = "#middle > div.h_company > div.wrap_company > div > span.code"
+        return self.soup.select_one(selector).text
+
     def get_price(self, convert: bool=False):
         selector = "#chart_area > div.rate_info > div > p > em > span.blind"
         price = self.soup.select_one(selector).text
@@ -48,12 +54,49 @@ class data:
         compare = price - yesterday_price
 
         return compare if not percent else round(compare / yesterday_price * 100, 2)
-        
+
+class Core(commands.Cog):
+    def __init__(self, lelle):
+        self.lelle = lelle
+    
+    @commands.command(aliases=["주식"])
+    async def stock(self, ctx, stock_name: str):
+        stock = data(stock_name)
+
+        embed = discord.Embed(
+            title=f"{stock.get_name()} | {stock.get_code()}",
+            color=0x99ddff
+        )
+
+        embed.add_field(
+            name="현재가",
+            value=stock.get_price(),
+            inline=True
+        )
+
+        embed.add_field(
+            name="등락율",
+            value=stock.get_change(percent=True),
+            inline=True
+        )
+
+        embed.add_field(
+            name="전일대비",
+            value=stock.get_change(),
+            inline=True
+        )
+
+        embed.set_footer(text="원하시는 결과가 아닌가요? <종목코드> 로 검색해보세요.")
+
+        await ctx.channel.send(embed=embed)
+       
+def setup(lelle):
+    lelle.add_cog(Core(lelle))
+
 if __name__ == "__main__":
-    stock = data("삼성전자")
+    stock = data("kakao")
     print(stock.get_name())
     print(stock.get_price())
     print(stock.get_yesterday_price())
-    print(stock.get_change())
     print(stock.get_change())
     print(stock.get_change(percent=True))
