@@ -1,5 +1,5 @@
 ## lelle.bot (디스코드 렐레 봇)
-<img src="https://img.shields.io/badge/python3.8-3776AB?style=for-the-badge&logo=Python&logoColor=white"> <img src="https://img.shields.io/badge/LICENCE|MIT-FFFFFF?style=for-the-badge"> 
+<img src="https://img.shields.io/badge/python3.8-3776AB?style=for-the-badge&logo=Python&logoColor=white"> <img src="https://img.shields.io/badge/LICENSE|MIT-FFFFFF?style=for-the-badge"> 
 
 <img src="data/img/lelle_ico.png" width="30%">
 
@@ -12,7 +12,7 @@ lelle(렐레) `2021. 12. 15` 개발 시작<br>
 ## 정보
 - 개발 언어: `python3.8`
 - 접두사: `u`
-- 라이선스: `MIT LICENCE`
+- 라이선스: `MIT LICENSE`
 - 개발자: `ulhangry` ('^'#2854)
 - 도움을 준 사람: `lesh` (LESH#3201)
 
