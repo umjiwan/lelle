@@ -1,10 +1,11 @@
 from discord.ext import commands
-import discord
-from lelle import stock
-import os
+import discord, os
+
+with open("data/lelle_prefix.txt", "r") as prefix_file:
+    prefix = prefix_file.read()
 
 lelle = commands.Bot(
-    command_prefix="t",
+    command_prefix=prefix,
     status=discord.Status.online,
 
     activity=discord.Activity(

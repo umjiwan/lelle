@@ -1,3 +1,4 @@
+from lib2to3.pytree import convert
 from urllib import parse
 from bs4 import BeautifulSoup
 import requests
@@ -74,15 +75,17 @@ class Core(commands.Cog):
             inline=True
         )
 
+        price_is_up = True if stock.get_change() >= 0 else False
+
         embed.add_field(
             name="등락율",
-            value=stock.get_change(percent=True),
+            value=f'{"+" if price_is_up else ""}' + f"{stock.get_change(percent=True)}" + "%",
             inline=True
         )
 
         embed.add_field(
             name="전일대비",
-            value=stock.get_change(),
+            value=f'{"+" if price_is_up else ""}' + stock.get_change(),
             inline=True
         )
 
